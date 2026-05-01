@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dunigan Enterprises LLC</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Montserrat',sans-serif;
+  background:#000;
+  color:#fff;
+}
+
+/* GOLD THEME */
+:root{
+  --gold:#d4af37;
+  --gold-light:#f5d77a;
+  --gold-dark:#a67c00;
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 30px;
+  background:#000;
+  border-bottom:1px solid var(--gold-dark);
+  font-size:14px;
+}
+
+.topbar .left span{margin-right:20px}
+
+.call-btn{
+  background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+  padding:10px 18px;
+  border-radius:5px;
+  font-weight:600;
+  color:#000;
+}
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 30px;
+  background:#000;
+}
+
+.logo img{height:65px}
+
+.nav a{
+  color:var(--gold);
+  margin:0 15px;
+  text-decoration:none;
+  font-weight:600;
+}
+
+.nav a:hover{
+  color:#fff;
+}
+
+.hero{
+  display:grid;
+  grid-template-columns:30% 35% 35%;
+}
+
+.hero-left{
+  background:#000;
+  padding:40px 30px;
+  border-right:1px solid var(--gold-dark);
+}
+
+.hero-left h1{
+  font-size:28px;
+  margin-bottom:15px;
+  color:var(--gold);
+}
+
+.hero-left p{margin-bottom:20px;color:#ccc}
+
+.hero-left li{
+  margin:10px 0;
+}
+
+.hero-left i{
+  color:var(--gold);
+}
+
+.btn{
+  padding:12px 18px;
+  border:none;
+  margin-right:10px;
+  font-weight:600;
+  border-radius:4px;
+  cursor:pointer;
+}
+
+.btn.gold{
+  background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+  color:#000;
+}
+
+.btn.dark{
+  background:#111;
+  color:var(--gold);
+  border:1px solid var(--gold-dark);
+}
+
+.hero img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.fix-row{
+  display:flex;
+  justify-content:space-around;
+  padding:20px;
+  background:#000;
+  border-top:1px solid var(--gold-dark);
+  border-bottom:1px solid var(--gold-dark);
+}
+
+.fix-item{
+  text-align:center;
+  font-size:14px;
+  color:var(--gold);
+}
+
+.section{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:20px;
+  padding:40px 30px;
+  background:#000;
+}
+
+.card{
+  background:#0a0a0a;
+  padding:25px;
+  border-radius:10px;
+  border:1px solid var(--gold-dark);
+}
+
+.card h3{
+  margin-bottom:15px;
+  color:var(--gold);
+}
+
+.price{
+  color:var(--gold);
+  font-size:28px;
+  margin:10px 0;
+}
+
+.footer{
+  background:#000;
+  padding:15px;
+  text-align:center;
+  border-top:1px solid var(--gold-dark);
+  color:var(--gold);
+}
+
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr}
+  .section{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+  <div class="left">
+    <span><i class="fa fa-phone"></i> 662-402-9032</span>
+    <span><i class="fa fa-envelope"></i> dianamahmah55@gmail.com</span>
+    <span><i class="fa fa-location-dot"></i> Cleveland, MS 38732</span>
+  </div>
+  <div class="call-btn">CALL NOW</div>
+</div>
+
+<div class="header">
+  <div class="logo">
+    <img src="logo.png" alt="logo">
+  </div>
+  <div class="nav">
+    <a href="#">HOME</a>
+    <a href="#">ABOUT</a>
+    <a href="#">SERVICES</a>
+    <a href="#">PRICING</a>
+    <a href="#">REQUEST</a>
+    <a href="#">CONTACT</a>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-left">
+    <h1>IT SOLUTIONS THAT KEEP YOU RUNNING</h1>
+    <p>From slow computers to network problems and security threats, we've got you covered.</p>
+
+    <ul>
+      <li><i class="fa fa-check"></i> Computer Repair & Troubleshooting</li>
+      <li><i class="fa fa-check"></i> Network Setup & Maintenance</li>
+      <li><i class="fa fa-check"></i> Virus Removal & Security Help</li>
+      <li><i class="fa fa-check"></i> On-Site & Remote Support</li>
+      <li><i class="fa fa-check"></i> Security Camera Installation</li>
+    </ul>
+
+    <br>
+    <button class="btn gold">REQUEST SERVICE</button>
+    <button class="btn dark">CALL NOW</button>
+  </div>
+
+  <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8" alt="Laptop Hardware">
+  <img src="https://images.unsplash.com/photo-1510511459019-5dda7724fd87" alt="Cyber Security Code">
+</div>
+
+<div class="fix-row">
+  <div class="fix-item"><i class="fa fa-bug"></i><br>Malware</div>
+  <div class="fix-item"><i class="fa fa-virus"></i><br>Virus</div>
+  <div class="fix-item"><i class="fa fa-skull-crossbones"></i><br>Worm</div>
+  <div class="fix-item"><i class="fa fa-lock"></i><br>Ransomware</div>
+  <div class="fix-item"><i class="fa fa-user-secret"></i><br>Trojan</div>
+  <div class="fix-item"><i class="fa fa-coins"></i><br>Crypto</div>
+</div>
+
+<div class="section">
+
+  <div class="card">
+    <h3>OUR SERVICES</h3>
+    <ul>
+      <li>System Tune-Ups</li>
+      <li>Virus & Threat Removal</li>
+      <li>Network Setup</li>
+      <li>Remote Support</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>MONTHLY PLAN</h3>
+    <div class="price">$300 / MONTH</div>
+    <p>Full maintenance, repair, and protection services included.</p>
+  </div>
+
+  <div class="card">
+    <h3>WHY CHOOSE US</h3>
+    <ul>
+      <li>25+ Years Experience</li>
+      <li>Trusted & Local</li>
+      <li>Fast Response</li>
+      <li>Dependable Service</li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="footer">
+  CALL OR TEXT 662-402-9032 • CLEVELAND, MS
+</div>
+
+
+
+<!-- REQUEST SERVICE PAGE SECTION -->
+<section id="request" style="padding:50px 30px;background:#000;border-top:1px solid var(--gold-dark);">
+  <h2 style="color:var(--gold);margin-bottom:20px;">REQUEST SERVICE</h2>
+
+  <form action="https://formspree.io/f/yourcode" method="POST" style="max-width:700px;display:flex;flex-direction:column;gap:15px;">
+
+    <input type="text" name="name" placeholder="Full Name" required style="padding:12px;border:none;border-radius:5px;">
+
+    <input type="email" name="email" placeholder="Email Address" required style="padding:12px;border:none;border-radius:5px;">
+
+    <input type="tel" name="phone" placeholder="Phone Number" style="padding:12px;border:none;border-radius:5px;">
+
+    <select name="service" required style="padding:12px;border:none;border-radius:5px;">
+      <option value="">Select Service Needed</option>
+      <option>Computer Repair</option>
+      <option>Virus Removal</option>
+      <option>Network Setup</option>
+      <option>Security Camera Installation</option>
+      <option>Other</option>
+    </select>
+
+    <textarea name="message" placeholder="Describe your issue" rows="5" style="padding:12px;border:none;border-radius:5px;"></textarea>
+
+    <button type="submit" class="btn gold">SUBMIT REQUEST</button>
+
+  </form>
+</section>
+
+<!-- QUICK PAYMENT SECTION -->
+<section style="padding:40px 30px;background:#0a0a0a;border-top:1px solid var(--gold-dark);">
+  <h2 style="color:var(--gold);margin-bottom:15px;">SUBSCRIBE TO MONTHLY PLAN</h2>
+  <p style="margin-bottom:20px;">Secure your IT support plan instantly.</p>
+
+  <a href="https://buy.stripe.com/yourlink" target="_blank">
+    <button class="btn gold">SUBSCRIBE NOW</button>
+  </a>
+</section>
+
+</body>
+</html>
