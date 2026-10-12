@@ -187,6 +187,7 @@ input::placeholder,textarea::placeholder{color:#777}
     <nav class="nav" id="nav">
       <a href="#home">HOME</a>
       <a href="#services">SERVICES</a>
+      <a href="#remote">REMOTE MANAGEMENT</a>
       <a href="#pricing">PRICING</a>
       <a href="#how">HOW IT WORKS</a>
       <a href="#about">ABOUT</a>
@@ -254,8 +255,41 @@ input::placeholder,textarea::placeholder{color:#777}
   </div>
 </section>
 
+<!-- REMOTE MANAGEMENT -->
+<section id="remote" class="alt">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Remote Management</h2>
+      <p>We look after your computers from our end, so small problems get caught before they slow you down. No visit needed for most issues.</p>
+    </div>
+    <div class="grid g3">
+      <div class="card"><div class="icon"><i class="fa fa-arrows-rotate"></i></div><h3>Updates &amp; Patching</h3><p>Windows and key software updates kept current, so known security holes get closed.</p></div>
+      <div class="card"><div class="icon"><i class="fa fa-shield-halved"></i></div><h3>Security Checks</h3><p>Antivirus status, firewall and backup checks on a regular schedule, with problems flagged and fixed.</p></div>
+      <div class="card"><div class="icon"><i class="fa fa-screwdriver-wrench"></i></div><h3>Fixes Without a Visit</h3><p>When something breaks, we connect to your computer, with your approval, and repair it remotely.</p></div>
+    </div>
+    <div class="grid g2" style="margin-top:22px">
+      <div class="card">
+        <h3>How remote management works</h3>
+        <ul>
+          <li>You approve the setup, and we install a small management tool on each covered computer.</li>
+          <li>Routine maintenance runs on a schedule. We tell you what was done.</li>
+          <li>For hands-on fixes, we ask your permission before connecting to your screen.</li>
+          <li>You can have the tool removed any time you cancel.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Already a customer? Join a session</h3>
+        <p style="margin-bottom:16px">If we've scheduled a remote session with you, use the button below to connect. We'll tell you when to click it.</p>
+        <a class="btn gold" id="joinBtn" href="#request">JOIN A REMOTE SESSION</a>
+        <p class="note" id="joinNote" style="display:none;text-align:left">Online session joining isn't set up yet. Call or text 662-402-9032 and we'll connect you.</p>
+        <p class="note" style="text-align:left;margin-top:14px">Management is included in the Business Essentials and Business Complete plans. See <a href="#pricing">Pricing</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- PRICING -->
-<section id="pricing" class="alt">
+<section id="pricing">
   <div class="wrap">
     <div class="section-head">
       <h2>Plans &amp; Pricing</h2>
@@ -319,7 +353,7 @@ input::placeholder,textarea::placeholder{color:#777}
 </section>
 
 <!-- HOW IT WORKS -->
-<section id="how">
+<section id="how" class="alt">
   <div class="wrap">
     <div class="section-head">
       <h2>How It Works</h2>
@@ -334,7 +368,7 @@ input::placeholder,textarea::placeholder{color:#777}
 </section>
 
 <!-- BOOK -->
-<section id="book" class="alt">
+<section id="book">
   <div class="wrap">
     <div class="section-head">
       <h2>Book a Remote Session</h2>
@@ -371,6 +405,7 @@ input::placeholder,textarea::placeholder{color:#777}
     <div class="section-head"><h2>Frequently Asked Questions</h2></div>
 
     <details><summary>Is remote support safe?</summary><p>Yes. We use reputable, encrypted screen-sharing tools, and every session starts only when you approve it. You can see what we're doing and end the session whenever you want. We won't ask for your passwords unless absolutely necessary.</p></details>
+    <details><summary>What does remote management install on my computer?</summary><p>A small management tool that lets us run updates and security checks and, with your approval, connect for repairs. We install it only with your permission, we tell you what it does, and we remove it if you cancel.</p></details>
     <details><summary>What if you can't fix it remotely?</summary><p>Some problems, like a failed hard drive or broken screen, need hands-on repair. We'll tell you up front and can schedule an on-site visit or advise you on the best option.</p></details>
     <details><summary>Should I back up my files first?</summary><p>Yes, whenever possible. We recommend backing up important files before any repair, and we'll remind you before we make risky changes.</p></details>
     <details><summary>What areas do you serve on-site?</summary><p>We're based in Cleveland, MS. Call or text 662-402-9032 to ask whether we can come to your location. Remote support is available anywhere.</p></details>
@@ -487,6 +522,7 @@ input::placeholder,textarea::placeholder{color:#777}
    ============================================================ */
 var SETTINGS = {
   formspreeUrl: "https://formspree.io/f/yourcode",          // your Formspree form URL
+  supportUrl:   "",                                          // link customers click to join a remote session (e.g. your remote-support tool's join page)
   bookingUrl:   "",                                          // e.g. your Calendly / Cal.com link
   stripe: {
     home:     "",                                            // Stripe payment link for Home Care ($29/mo)
@@ -507,6 +543,11 @@ nav.addEventListener("click", function(e){ if(e.target.tagName === "A"){ nav.cla
 
 /* footer year */
 document.getElementById("year").textContent = new Date().getFullYear();
+
+/* join remote session button */
+var joinBtn = document.getElementById("joinBtn");
+if (isReal(SETTINGS.supportUrl)) { joinBtn.href = SETTINGS.supportUrl; joinBtn.target = "_blank"; joinBtn.rel = "noopener"; }
+else { document.getElementById("joinNote").style.display = "block"; }
 
 /* booking button */
 var bookBtn = document.getElementById("bookBtn");
