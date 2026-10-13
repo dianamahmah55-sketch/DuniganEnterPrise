@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Dunigan IT Support</title>
+<meta name="description" content="Request IT help, read fix-it guides and subscribe to a support plan with Dunigan Enterprises LLC in Cleveland, MS.">
+<meta name="theme-color" content="#000000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Dunigan IT">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="logo.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<style>
+:root{
+  --gold:#d4af37;--gold-light:#f5d77a;--gold-dark:#a67c00;
+  --bg:#000;--panel:#0c0c0c;--text:#f2f2f2;--muted:#b9b9b9;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Montserrat',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) calc(24px + env(safe-area-inset-bottom)) env(safe-area-inset-left)}
+a{color:var(--gold)}
+.wrap{max-width:520px;margin:0 auto;padding:0 18px}
+
+header{padding:22px 0 10px;text-align:center}
+header img{height:84px;display:block;margin:0 auto 8px}
+header h1{font-size:20px;color:var(--gold)}
+header p{color:var(--muted);font-size:14px}
+
+.urgent{background:var(--panel);border:1px solid var(--gold-dark);border-left:4px solid var(--gold);border-radius:10px;padding:14px 16px;margin:16px 0;font-size:14px;color:var(--muted)}
+.urgent b{color:var(--gold-light)}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.tile{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:104px;padding:14px 10px;background:var(--panel);border:1px solid var(--gold-dark);border-radius:12px;color:var(--text);text-decoration:none;font-weight:600;font-size:15px;text-align:center}
+.tile:active{transform:scale(.98);border-color:var(--gold)}
+.tile svg{width:28px;height:28px;stroke:var(--gold);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tile:last-child{grid-column:1/-1;min-height:76px;flex-direction:row}
+.tile.primary{grid-column:1/-1;background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#000;border:none;min-height:76px;flex-direction:row;font-size:17px}
+.tile.primary svg{stroke:#000}
+
+h2{color:var(--gold);font-size:17px;margin:26px 0 12px}
+.plan{background:var(--panel);border:1px solid var(--gold-dark);border-radius:12px;padding:16px;margin-bottom:12px}
+.plan.featured{border:2px solid var(--gold)}
+.plan .row{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.plan h3{font-size:16px;color:var(--gold)}
+.plan .price{font-size:20px;font-weight:700;color:var(--gold)}
+.plan .price span{font-size:12px;color:var(--muted);font-weight:500}
+.plan p{font-size:13px;color:var(--muted);margin:6px 0 12px}
+.btn{display:block;width:100%;padding:12px;border-radius:8px;border:none;font:inherit;font-weight:600;font-size:15px;text-align:center;text-decoration:none;cursor:pointer}
+.btn.gold{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#000}
+.btn.dark{background:#111;color:var(--gold);border:1px solid var(--gold-dark)}
+
+table{width:100%;border-collapse:collapse;font-size:14px}
+td{padding:11px 4px;border-bottom:1px solid #222;vertical-align:top}
+td:last-child{color:var(--gold);font-weight:700;white-space:nowrap;text-align:right}
+td small{display:block;color:var(--muted);font-size:12px}
+
+.install{background:var(--panel);border:1px solid var(--gold-dark);border-radius:12px;padding:16px;margin:16px 0;display:none}
+.install.show{display:block}
+.install p{font-size:14px;color:var(--muted);margin-bottom:12px}
+.install .ios{font-size:13px;color:var(--muted)}
+.install .ios b{color:var(--gold-light)}
+
+.offline{display:none;background:#2a1d00;color:var(--gold-light);text-align:center;font-size:13px;padding:8px}
+.offline.show{display:block}
+
+footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
+footer a{margin:0 6px;text-decoration:none}
+</style>
+</head>
+
+<body>
+<div class="offline" id="offline">You're offline. Guides still work; calling and requests need a connection.</div>
+
+<div class="wrap">
+
+  <header>
+    <img src="logo.png" alt="Dunigan Enterprises LLC">
+    <h1>Dunigan Enterprises IT Support</h1>
+    <p>Cleveland, MS &bull; Remote &amp; on-site help</p>
+  </header>
+
+  <div class="install" id="installCard">
+    <p id="installText">Add this app to your home screen for one-tap access.</p>
+    <button class="btn gold" id="installBtn" type="button" style="display:none">INSTALL APP</button>
+    <div class="ios" id="iosHelp" style="display:none">On iPhone: tap the <b>Share</b> button in Safari, then <b>Add to Home Screen</b>.</div>
+  </div>
+
+  <div class="urgent">
+    <b>Ransomware, hacked account or a message demanding payment?</b> Unplug the network cable, don't restart, and call <a href="tel:+16624029032">662-402-9032</a> right away.
+  </div>
+
+  <div class="grid">
+    <a class="tile primary" href="tel:+16624029032">
+      <svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+      CALL 662-402-9032
+    </a>
+    <a class="tile" href="sms:+16624029032">
+      <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Text us
+    </a>
+    <a class="tile" href="index.html#request">
+      <svg viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M9 14h6M9 17h4"/></svg>
+      Request service
+    </a>
+    <a class="tile" href="help.html">
+      <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>
+      Fix-It Guides
+    </a>
+    <a class="tile" href="mailto:dianamahmah55@gmail.com">
+      <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+      Email us
+    </a>
+    <a class="tile" href="index.html#book">
+      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      Book a session
+    </a>
+  </div>
+
+  <h2>Monthly support plans</h2>
+
+  <div class="plan">
+    <div class="row"><h3>Home Care</h3><div class="price">$29<span> / month</span></div></div>
+    <p>Monthly check-up, up to 2 remote support requests, priority booking.</p>
+    <a class="btn dark" href="https://buy.stripe.com/dRmdRb2AO5td6hXcpb4AU09" target="_blank" rel="noopener">SUBSCRIBE</a>
+  </div>
+
+  <div class="plan featured">
+    <div class="row"><h3>Business Essentials</h3><div class="price">$99<span> / month</span></div></div>
+    <p>For offices up to 5 computers. Monthly maintenance, up to 3 hours of remote support, next-business-day response.</p>
+    <a class="btn gold" href="https://buy.stripe.com/bJe9AVb7k1cX6hX3SF4AU0a" target="_blank" rel="noopener">SUBSCRIBE</a>
+  </div>
+
+  <div class="plan">
+    <div class="row"><h3>Business Complete</h3><div class="price">$300<span> / month</span></div></div>
+    <p>Unlimited remote support in business hours, same-day response for urgent issues, on-site visit when needed.</p>
+    <a class="btn dark" href="https://buy.stripe.com/cNibJ3a3g7BldKpdtf4AU0b" target="_blank" rel="noopener">SUBSCRIBE</a>
+  </div>
+
+  <h2>Pay as you go</h2>
+  <table>
+    <tr><td>Remote support, 30 min<small>Software, printers, basic network help</small></td><td>$35</td></tr>
+    <tr><td>Remote support, 60 min<small>Longer or multi-issue sessions</small></td><td>$60</td></tr>
+    <tr><td>Guided diagnostic<small>One problem, step by step</small></td><td>$9.99</td></tr>
+    <tr><td>On-site visit<small>Call or text for a quote</small></td><td>Quote</td></tr>
+  </table>
+
+  <footer>
+    <p><a href="index.html">Full website</a> &bull; <a href="index.html#privacy">Privacy</a> &bull; <a href="index.html#terms">Terms</a> &bull; <a href="index.html#refunds">Refunds</a></p>
+    <p style="margin-top:8px">&copy; <span id="year">2026</span> Dunigan Enterprises LLC</p>
+  </footer>
+</div>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+/* offline banner */
+var offlineEl = document.getElementById("offline");
+function updateOnline(){ offlineEl.classList.toggle("show", !navigator.onLine); }
+window.addEventListener("online", updateOnline);
+window.addEventListener("offline", updateOnline);
+updateOnline();
+
+/* install prompt */
+var card = document.getElementById("installCard"), btn = document.getElementById("installBtn"), ios = document.getElementById("iosHelp"), deferred = null;
+var standalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+
+if (!standalone) {
+  if (isIOS) { card.classList.add("show"); ios.style.display = "block"; }
+  window.addEventListener("beforeinstallprompt", function(e){
+    e.preventDefault(); deferred = e;
+    card.classList.add("show"); btn.style.display = "block";
+  });
+  btn.addEventListener("click", function(){
+    if (!deferred) return;
+    deferred.prompt();
+    deferred.userChoice.finally(function(){ deferred = null; card.classList.remove("show"); });
+  });
+  window.addEventListener("appinstalled", function(){ card.classList.remove("show"); });
+}
+
+/* offline support */
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function(){ navigator.serviceWorker.register("sw.js").catch(function(){}); });
+}
+</script>
+</body>
+</html>

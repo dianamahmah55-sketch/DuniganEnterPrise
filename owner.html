@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Business Manager</title>
+<meta name="theme-color" content="#000000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Biz Manager">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="owner.webmanifest">
+<link rel="icon" href="logo.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<style>
+:root{--gold:#d4af37;--gold-light:#f5d77a;--gold-dark:#a67c00;--bg:#000;--panel:#0c0c0c;--text:#f2f2f2;--muted:#b9b9b9;--ok:#7bd88f;--err:#ff8a80}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) calc(90px + env(safe-area-inset-bottom)) env(safe-area-inset-left)}
+.wrap{max-width:640px;margin:0 auto;padding:0 16px}
+header{display:flex;align-items:center;gap:12px;padding:16px 0}
+header img{height:44px}
+header h1{font-size:18px;color:var(--gold)}
+header p{font-size:12px;color:var(--muted)}
+
+nav{position:fixed;bottom:0;left:0;right:0;background:#000;border-top:1px solid var(--gold-dark);display:flex;padding-bottom:env(safe-area-inset-bottom);z-index:10}
+nav button{flex:1;background:none;border:none;color:var(--muted);font:inherit;font-size:13px;font-weight:600;padding:14px 4px;cursor:pointer}
+nav button[aria-selected="true"]{color:var(--gold);box-shadow:inset 0 2px 0 var(--gold)}
+
+.panel{display:none}
+.panel.show{display:block}
+h2{color:var(--gold);font-size:16px;margin:18px 0 10px}
+
+.card{background:var(--panel);border:1px solid var(--gold-dark);border-radius:12px;padding:14px 16px;margin-bottom:12px}
+.card .top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.card b{color:var(--text)}
+.card small{color:var(--muted);display:block;font-size:12px}
+.tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px;background:#1a1a1a;color:var(--gold-light);border:1px solid var(--gold-dark);white-space:nowrap}
+.tag.open{background:var(--gold);color:#000;border-color:var(--gold)}
+.tag.done{color:var(--ok);border-color:#2f5a38}
+.actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+
+button.b,a.b{display:inline-block;padding:10px 16px;border-radius:8px;border:none;font:inherit;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;text-align:center}
+.b.gold{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#000}
+.b.dark{background:#111;color:var(--gold);border:1px solid var(--gold-dark)}
+.b.red{background:#111;color:var(--err);border:1px solid #5a2f2b}
+.b.small{padding:7px 12px;font-size:13px}
+.full{width:100%}
+
+form{display:flex;flex-direction:column;gap:10px}
+label{font-size:12px;color:var(--gold-light);font-weight:600;margin-bottom:-4px}
+input,select,textarea{width:100%;padding:12px;border:1px solid #333;border-radius:8px;background:#111;color:#fff;font:inherit;font-size:16px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--gold)}
+
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.stat{background:var(--panel);border:1px solid var(--gold-dark);border-radius:12px;padding:16px;text-align:center}
+.stat b{display:block;color:var(--gold);font-size:24px}
+.stat span{color:var(--muted);font-size:12px}
+.bar{height:12px;background:#1a1a1a;border-radius:6px;overflow:hidden;margin:10px 0 6px;border:1px solid #333}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold-dark),var(--gold));width:0}
+.empty{color:var(--muted);text-align:center;padding:26px 10px;font-size:14px}
+.note{color:var(--muted);font-size:12px;margin-top:8px}
+.warn{background:#2a1d00;border:1px solid var(--gold-dark);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--gold-light);margin-bottom:12px}
+.status{font-size:13px;min-height:18px;margin-top:8px}
+.status.ok{color:var(--ok)}.status.err{color:var(--err)}
+.filter{display:flex;gap:8px;margin-bottom:12px}
+.filter button{flex:1}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+  <header>
+    <img src="logo.png" alt="">
+    <div><h1>Business Manager</h1><p>Private tool for Dunigan Enterprises</p></div>
+  </header>
+
+  <!-- CLIENTS -->
+  <section class="panel show" id="p-clients">
+    <div class="warn">Your data is saved only on this device. Use <b>Backup</b> regularly so you don't lose it.</div>
+    <button class="b gold full" id="addClientBtn" type="button">+ ADD CLIENT</button>
+    <div id="clientForm" style="display:none;margin-top:12px" class="card">
+      <form id="cForm">
+        <input type="hidden" id="cId">
+        <label for="cName">Name or business</label><input id="cName" required maxlength="80">
+        <label for="cPhone">Phone</label><input id="cPhone" type="tel" maxlength="30">
+        <label for="cEmail">Email</label><input id="cEmail" type="email" maxlength="80">
+        <label for="cPlan">Plan</label>
+        <select id="cPlan">
+          <option value="none">No plan (pay as you go)</option>
+          <option value="home">Home Care, $29/mo</option>
+          <option value="business">Business Essentials, $99/mo</option>
+          <option value="complete">Business Complete, $300/mo</option>
+        </select>
+        <label for="cNotes">Notes</label><textarea id="cNotes" rows="3" maxlength="500"></textarea>
+        <div class="actions"><button class="b gold" type="submit">SAVE</button><button class="b dark" type="button" id="cCancel">CANCEL</button></div>
+      </form>
+    </div>
+    <h2>Clients <span id="clientCount" style="color:var(--muted);font-weight:500"></span></h2>
+    <div id="clientList"></div>
+  </section>
+
+  <!-- TICKETS -->
+  <section class="panel" id="p-tickets">
+    <button class="b gold full" id="addTicketBtn" type="button">+ NEW TICKET</button>
+    <div id="ticketForm" style="display:none;margin-top:12px" class="card">
+      <form id="tForm">
+        <input type="hidden" id="tId">
+        <label for="tClient">Client</label><select id="tClient" required></select>
+        <label for="tIssue">Problem</label><textarea id="tIssue" rows="3" required maxlength="500"></textarea>
+        <label for="tStatus">Status</label>
+        <select id="tStatus"><option value="open">Open</option><option value="waiting">Waiting on client</option><option value="done">Done</option></select>
+        <div class="actions"><button class="b gold" type="submit">SAVE</button><button class="b dark" type="button" id="tCancel">CANCEL</button></div>
+      </form>
+    </div>
+    <h2>Tickets</h2>
+    <div class="filter">
+      <button class="b dark small" data-f="active" type="button">Active</button>
+      <button class="b dark small" data-f="done" type="button">Done</button>
+      <button class="b dark small" data-f="all" type="button">All</button>
+    </div>
+    <div id="ticketList"></div>
+  </section>
+
+  <!-- MONEY -->
+  <section class="panel" id="p-money">
+    <h2>Monthly recurring revenue</h2>
+    <div class="stats">
+      <div class="stat"><b id="mrr">$0</b><span>per month now</span></div>
+      <div class="stat"><b id="arr">$0</b><span>per year at this pace</span></div>
+    </div>
+    <div class="card">
+      <div class="top"><b>Goal: $200,000 a year</b><span class="tag" id="pct">0%</span></div>
+      <div class="bar"><i id="barFill"></i></div>
+      <small id="goalText"></small>
+    </div>
+    <div class="card"><b>By plan</b><div id="byPlan" style="margin-top:8px"></div></div>
+    <p class="note">Revenue here counts only recurring plans. Pay-as-you-go work and on-site visits aren't included.</p>
+
+    <h2>Backup</h2>
+    <div class="card">
+      <p class="note" style="margin:0 0 10px">Save a copy of your clients and tickets. Restore it on a new phone or if your browser data is cleared.</p>
+      <div class="actions">
+        <button class="b gold" id="exportBtn" type="button">BACKUP</button>
+        <button class="b dark" id="importBtn" type="button">RESTORE</button>
+        <input type="file" id="importFile" accept="application/json,.json" style="display:none">
+      </div>
+      <div class="status" id="backupStatus" role="status" aria-live="polite"></div>
+    </div>
+  </section>
+</div>
+
+<nav role="tablist" aria-label="Sections">
+  <button role="tab" aria-selected="true" data-p="clients" type="button">Clients</button>
+  <button role="tab" aria-selected="false" data-p="tickets" type="button">Tickets</button>
+  <button role="tab" aria-selected="false" data-p="money" type="button">Money</button>
+</nav>
+
+<script>
+var PLANS = {
+  none:     { label: "No plan", price: 0 },
+  home:     { label: "Home Care", price: 29 },
+  business: { label: "Business Essentials", price: 99 },
+  complete: { label: "Business Complete", price: 300 }
+};
+var GOAL_YEAR = 200000;
+var KEY = "dunigan-owner-v1";
+var db = load();
+var ticketFilter = "active";
+
+function load(){
+  try {
+    var d = JSON.parse(localStorage.getItem(KEY));
+    if (d && Array.isArray(d.clients) && Array.isArray(d.tickets)) return d;
+  } catch (e) {}
+  return { clients: [], tickets: [] };
+}
+function save(){
+  try { localStorage.setItem(KEY, JSON.stringify(db)); }
+  catch (e) { alert("This browser blocked saving. Your changes won't be kept."); }
+}
+function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+function $(id){ return document.getElementById(id); }
+function money(n){ return "$" + Math.round(n).toLocaleString("en-US"); }
+function el(tag, cls, text){ var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+function clientById(id){ return db.clients.filter(function(c){ return c.id === id; })[0]; }
+
+/* tabs */
+document.querySelectorAll("nav button").forEach(function(b){
+  b.addEventListener("click", function(){
+    document.querySelectorAll("nav button").forEach(function(x){ x.setAttribute("aria-selected", x === b); });
+    document.querySelectorAll(".panel").forEach(function(p){ p.classList.remove("show"); });
+    $("p-" + b.dataset.p).classList.add("show");
+    window.scrollTo(0, 0);
+    render();
+  });
+});
+
+/* clients */
+function showClientForm(c){
+  $("clientForm").style.display = "block";
+  $("cId").value = c ? c.id : "";
+  $("cName").value = c ? c.name : "";
+  $("cPhone").value = c ? c.phone : "";
+  $("cEmail").value = c ? c.email : "";
+  $("cPlan").value = c ? c.plan : "none";
+  $("cNotes").value = c ? c.notes : "";
+  $("cName").focus();
+}
+$("addClientBtn").addEventListener("click", function(){ showClientForm(null); });
+$("cCancel").addEventListener("click", function(){ $("clientForm").style.display = "none"; });
+$("cForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  var rec = { id: $("cId").value || uid(), name: $("cName").value.trim(), phone: $("cPhone").value.trim(), email: $("cEmail").value.trim(), plan: $("cPlan").value, notes: $("cNotes").value.trim() };
+  var i = db.clients.findIndex(function(c){ return c.id === rec.id; });
+  if (i >= 0) db.clients[i] = rec; else db.clients.push(rec);
+  save(); $("clientForm").style.display = "none"; render();
+});
+
+function renderClients(){
+  var box = $("clientList"); box.textContent = "";
+  $("clientCount").textContent = db.clients.length ? "(" + db.clients.length + ")" : "";
+  if (!db.clients.length) { box.appendChild(el("div", "empty", "No clients yet. Tap Add Client to start.")); return; }
+  db.clients.slice().sort(function(a, b){ return a.name.localeCompare(b.name); }).forEach(function(c){
+    var card = el("div", "card"), top = el("div", "top"), left = el("div");
+    left.appendChild(el("b", null, c.name));
+    left.appendChild(el("small", null, PLANS[c.plan].label + (PLANS[c.plan].price ? " • " + money(PLANS[c.plan].price) + "/mo" : "")));
+    if (c.phone) left.appendChild(el("small", null, c.phone));
+    if (c.email) left.appendChild(el("small", null, c.email));
+    if (c.notes) left.appendChild(el("small", null, c.notes));
+    top.appendChild(left);
+    var open = db.tickets.filter(function(t){ return t.clientId === c.id && t.status !== "done"; }).length;
+    if (open) top.appendChild(el("span", "tag open", open + " open"));
+    card.appendChild(top);
+    var acts = el("div", "actions");
+    if (c.phone) { var call = el("a", "b dark small", "Call"); call.href = "tel:" + c.phone.replace(/[^\d+]/g, ""); acts.appendChild(call); }
+    var ed = el("button", "b dark small", "Edit"); ed.type = "button"; ed.addEventListener("click", function(){ showClientForm(c); window.scrollTo(0, 0); });
+    var del = el("button", "b red small", "Delete"); del.type = "button";
+    del.addEventListener("click", function(){
+      if (!confirm("Delete " + c.name + " and their tickets?")) return;
+      db.clients = db.clients.filter(function(x){ return x.id !== c.id; });
+      db.tickets = db.tickets.filter(function(t){ return t.clientId !== c.id; });
+      save(); render();
+    });
+    acts.appendChild(ed); acts.appendChild(del); card.appendChild(acts);
+    box.appendChild(card);
+  });
+}
+
+/* tickets */
+function showTicketForm(t){
+  var sel = $("tClient"); sel.textContent = "";
+  if (!db.clients.length) { alert("Add a client first."); return; }
+  db.clients.forEach(function(c){ var o = el("option", null, c.name); o.value = c.id; sel.appendChild(o); });
+  $("ticketForm").style.display = "block";
+  $("tId").value = t ? t.id : "";
+  if (t) sel.value = t.clientId;
+  $("tIssue").value = t ? t.issue : "";
+  $("tStatus").value = t ? t.status : "open";
+  $("tIssue").focus();
+}
+$("addTicketBtn").addEventListener("click", function(){ showTicketForm(null); });
+$("tCancel").addEventListener("click", function(){ $("ticketForm").style.display = "none"; });
+$("tForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  var id = $("tId").value, existing = db.tickets.filter(function(t){ return t.id === id; })[0];
+  var rec = { id: id || uid(), clientId: $("tClient").value, issue: $("tIssue").value.trim(), status: $("tStatus").value, created: existing ? existing.created : new Date().toISOString() };
+  var i = db.tickets.findIndex(function(t){ return t.id === rec.id; });
+  if (i >= 0) db.tickets[i] = rec; else db.tickets.push(rec);
+  save(); $("ticketForm").style.display = "none"; render();
+});
+document.querySelectorAll(".filter button").forEach(function(b){
+  b.addEventListener("click", function(){ ticketFilter = b.dataset.f; renderTickets(); });
+});
+
+var STATUS_LABEL = { open: "Open", waiting: "Waiting", done: "Done" };
+function renderTickets(){
+  document.querySelectorAll(".filter button").forEach(function(b){ b.style.borderColor = b.dataset.f === ticketFilter ? "var(--gold)" : ""; });
+  var box = $("ticketList"); box.textContent = "";
+  var list = db.tickets.filter(function(t){
+    return ticketFilter === "all" || (ticketFilter === "done" ? t.status === "done" : t.status !== "done");
+  }).sort(function(a, b){ return b.created.localeCompare(a.created); });
+  if (!list.length) { box.appendChild(el("div", "empty", ticketFilter === "done" ? "No finished tickets." : "No tickets here.")); return; }
+  list.forEach(function(t){
+    var c = clientById(t.clientId);
+    var card = el("div", "card"), top = el("div", "top"), left = el("div");
+    left.appendChild(el("b", null, c ? c.name : "(deleted client)"));
+    left.appendChild(el("small", null, new Date(t.created).toLocaleDateString()));
+    top.appendChild(left);
+    top.appendChild(el("span", "tag " + t.status, STATUS_LABEL[t.status]));
+    card.appendChild(top);
+    card.appendChild(el("p", null, t.issue)).style.margin = "8px 0 0";
+    var acts = el("div", "actions");
+    if (t.status !== "done") {
+      var fin = el("button", "b gold small", "Mark done"); fin.type = "button";
+      fin.addEventListener("click", function(){ t.status = "done"; save(); render(); });
+      acts.appendChild(fin);
+    }
+    var ed = el("button", "b dark small", "Edit"); ed.type = "button"; ed.addEventListener("click", function(){ showTicketForm(t); window.scrollTo(0, 0); });
+    var del = el("button", "b red small", "Delete"); del.type = "button";
+    del.addEventListener("click", function(){ if (!confirm("Delete this ticket?")) return; db.tickets = db.tickets.filter(function(x){ return x.id !== t.id; }); save(); render(); });
+    acts.appendChild(ed); acts.appendChild(del); card.appendChild(acts);
+    box.appendChild(card);
+  });
+}
+
+/* money */
+function renderMoney(){
+  var counts = { home: 0, business: 0, complete: 0 }, mrr = 0;
+  db.clients.forEach(function(c){ if (counts[c.plan] != null) { counts[c.plan]++; mrr += PLANS[c.plan].price; } });
+  var arr = mrr * 12, pct = Math.min(100, arr / GOAL_YEAR * 100);
+  $("mrr").textContent = money(mrr);
+  $("arr").textContent = money(arr);
+  $("pct").textContent = Math.round(pct) + "%";
+  $("barFill").style.width = pct + "%";
+  var gap = Math.max(0, GOAL_YEAR / 12 - mrr);
+  $("goalText").textContent = gap === 0 ? "Goal reached on recurring plans alone."
+    : money(gap) + " a month to go: about " + Math.ceil(gap / PLANS.business.price) + " more Business Essentials clients, or " + Math.ceil(gap / PLANS.complete.price) + " more Business Complete.";
+  var box = $("byPlan"); box.textContent = "";
+  ["home", "business", "complete"].forEach(function(k){
+    var row = el("div", "top"); row.style.margin = "6px 0";
+    row.appendChild(el("span", null, PLANS[k].label + " × " + counts[k]));
+    row.appendChild(el("b", null, money(counts[k] * PLANS[k].price) + "/mo"));
+    box.appendChild(row);
+  });
+}
+
+/* backup */
+function setStatus(msg, ok){ var s = $("backupStatus"); s.textContent = msg; s.className = "status " + (ok ? "ok" : "err"); }
+$("exportBtn").addEventListener("click", function(){
+  var blob = new Blob([JSON.stringify(db, null, 2)], { type: "application/json" });
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "dunigan-backup-" + new Date().toISOString().slice(0, 10) + ".json";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function(){ URL.revokeObjectURL(a.href); }, 1000);
+  setStatus("Backup saved to your downloads.", true);
+});
+$("importBtn").addEventListener("click", function(){ $("importFile").click(); });
+$("importFile").addEventListener("change", function(){
+  var f = this.files[0]; if (!f) return;
+  var r = new FileReader();
+  r.onload = function(){
+    try {
+      var d = JSON.parse(r.result);
+      if (!d || !Array.isArray(d.clients) || !Array.isArray(d.tickets)) throw new Error("bad");
+      var valid = d.clients.every(function(c){ return c && typeof c.id === "string" && typeof c.name === "string" && PLANS[c.plan]; })
+               && d.tickets.every(function(t){ return t && typeof t.id === "string" && typeof t.clientId === "string" && typeof t.issue === "string" && STATUS_LABEL[t.status] && typeof t.created === "string"; });
+      if (!valid) throw new Error("bad");
+      if (!confirm("Replace what's on this device with " + d.clients.length + " clients and " + d.tickets.length + " tickets from the backup?")) return;
+      d.clients.forEach(function(c){ c.phone = c.phone || ""; c.email = c.email || ""; c.notes = c.notes || ""; });
+      db = { clients: d.clients, tickets: d.tickets }; save(); render();
+      setStatus("Backup restored.", true);
+    } catch (e) { setStatus("That file isn't a valid backup.", false); }
+  };
+  r.readAsText(f); this.value = "";
+});
+
+function render(){ renderClients(); renderTickets(); renderMoney(); }
+render();
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function(){ navigator.serviceWorker.register("sw.js").catch(function(){}); });
+}
+</script>
+</body>
+</html>

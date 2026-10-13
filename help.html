@@ -6,6 +6,9 @@
 <title>Fix-It Guides | Dunigan Enterprises LLC</title>
 <meta name="description" content="Plain-language step-by-step fixes for common computer problems: forgotten passwords, Wi-Fi dropping, printer offline, slow computers and email not syncing. From Dunigan Enterprises LLC in Cleveland, MS.">
 <link rel="icon" href="logo.png">
+<meta name="theme-color" content="#000000">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -427,11 +430,13 @@ article code{background:#111;border:1px solid #333;border-radius:4px;padding:1px
       <a href="index.html#privacy">Privacy</a>
       <a href="index.html#terms">Terms</a>
       <a href="index.html#refunds">Refunds</a>
+      <a href="app.html">Get the app</a>
     </div>
     &copy; <span id="year">2026</span> Dunigan Enterprises LLC &bull; Cleveland, MS &bull; Call or text <a href="tel:+16624029032" style="margin:0">662-402-9032</a>
   </div>
 </footer>
 
 <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+<script>if ("serviceWorker" in navigator) { window.addEventListener("load", function(){ navigator.serviceWorker.register("sw.js").catch(function(){}); }); }</script>
 </body>
 </html>
