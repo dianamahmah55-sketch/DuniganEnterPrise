@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fix-It Guides | Dunigan Enterprises LLC</title>
+<meta name="description" content="Plain-language step-by-step fixes for common computer problems: forgotten passwords, Wi-Fi dropping, printer offline, slow computers and email not syncing. From Dunigan Enterprises LLC in Cleveland, MS.">
+<link rel="icon" href="logo.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+  --gold:#d4af37;
+  --gold-light:#f5d77a;
+  --gold-dark:#a67c00;
+  --bg:#000;
+  --panel:#0c0c0c;
+  --text:#f2f2f2;
+  --muted:#b9b9b9;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{color:var(--gold)}
+img{max-width:100%}
+.wrap{max-width:1150px;margin:0 auto;padding:0 24px}
+.narrow{max-width:820px;margin:0 auto;padding:0 24px}
+
+.btn{display:inline-block;padding:12px 22px;border:none;border-radius:5px;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;text-align:center;transition:transform .15s,opacity .15s}
+.btn:hover{transform:translateY(-1px);opacity:.92}
+.btn.gold{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#000}
+.btn.dark{background:#111;color:var(--gold);border:1px solid var(--gold-dark)}
+.btn.small{padding:9px 16px;font-size:14px}
+
+.header{position:sticky;top:0;z-index:50;background:rgba(0,0,0,.96);border-bottom:1px solid var(--gold-dark);backdrop-filter:blur(6px)}
+.header .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:12px;padding-bottom:12px;gap:12px;flex-wrap:wrap}
+.logo img{height:58px;display:block}
+.header .links{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+
+.hero{padding:60px 0 40px;background:radial-gradient(ellipse at 80% 20%,rgba(212,175,55,.16),transparent 55%),#000;border-bottom:1px solid var(--gold-dark)}
+.eyebrow{color:var(--gold-light);font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
+.hero h1{font-size:38px;line-height:1.15;color:var(--gold);margin-bottom:14px}
+.hero p{color:var(--muted);font-size:18px;max-width:640px}
+
+section{padding:50px 0;border-bottom:1px solid #1d1d1d}
+
+.toc{background:var(--panel);border:1px solid var(--gold-dark);border-radius:10px;padding:22px 26px;margin-bottom:34px}
+.toc h2{color:var(--gold);font-size:16px;margin-bottom:10px}
+.toc ul{list-style:none}
+.toc li{margin:8px 0}
+.toc a{text-decoration:none}
+.toc a:hover{text-decoration:underline}
+
+article{background:var(--panel);border:1px solid var(--gold-dark);border-radius:10px;padding:28px;margin-bottom:24px}
+article h2{color:var(--gold);font-size:22px;margin-bottom:14px}
+article ol{padding-left:22px;margin-bottom:18px}
+article li{color:var(--text);margin:10px 0;padding-left:4px}
+article code{background:#111;border:1px solid #333;border-radius:4px;padding:1px 6px;font-size:14px}
+.call-us{background:#000;border-left:3px solid var(--gold);border-radius:4px;padding:14px 16px;color:var(--muted);font-size:15px}
+.call-us b{color:var(--gold-light)}
+
+.cta{text-align:center;padding:50px 0}
+.cta h2{color:var(--gold);font-size:26px;margin-bottom:10px}
+.cta p{color:var(--muted);margin-bottom:22px}
+.cta .actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+.footer{background:#000;padding:30px 0;text-align:center;color:var(--muted);font-size:14px}
+.footer a{color:var(--gold);text-decoration:none;margin:0 8px}
+.footer .links{margin-bottom:10px}
+
+@media(max-width:700px){
+  .hero h1{font-size:30px}
+  article{padding:22px 18px}
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="wrap">
+    <a class="logo" href="index.html"><img src="logo.png" alt="Dunigan Enterprises LLC logo"></a>
+    <div class="links">
+      <a class="btn dark small" href="index.html">&larr; BACK TO HOME</a>
+      <a class="btn gold small" href="index.html#request">REQUEST SERVICE</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<div class="hero">
+  <div class="narrow">
+    <div class="eyebrow">Fix-It Guides</div>
+    <h1>Fix common computer problems yourself.</h1>
+    <p>Plain-language steps for the problems we see most. Try these first, and if they don't solve it, call or text us at 662-402-9032.</p>
+  </div>
+</div>
+
+<section>
+  <div class="narrow">
+
+    <nav class="toc" aria-label="Guides">
+      <h2>In this guide</h2>
+      <ul>
+        <li><a href="#password">1. I forgot my password or I'm locked out</a></li>
+        <li><a href="#wifi">2. My Wi-Fi keeps dropping</a></li>
+        <li><a href="#printer">3. My printer says it's offline</a></li>
+        <li><a href="#slow">4. My computer is running slow</a></li>
+        <li><a href="#email">5. My email isn't syncing or sending</a></li>
+      </ul>
+    </nav>
+
+    <article id="password">
+      <h2>1. I forgot my password or I'm locked out</h2>
+      <ol>
+        <li>On the sign-in page, click <b>Forgot password</b> (or <b>Can't access your account</b>).</li>
+        <li>Enter your work email and follow the code or link sent to your email or phone.</li>
+        <li>Choose a new password of at least 12 characters. A few random words works well, for example: <code>blue-kettle-orbit-seven</code>.</li>
+        <li>Sign in again on every device that asks, including your phone's mail app.</li>
+        <li>If you never receive the code, check your spam folder and wait five minutes before trying again.</li>
+      </ol>
+      <div class="call-us"><b>Call or text us</b> at <a href="tel:+16624029032">662-402-9032</a> if you no longer have access to the recovery email or phone, if the account says it is disabled, or if you did not request the reset. An unrequested reset can mean someone else is trying to get in.</div>
+    </article>
+
+    <article id="wifi">
+      <h2>2. My Wi-Fi keeps dropping</h2>
+      <ol>
+        <li>Check whether other devices drop too. If only one does, skip to step 5.</li>
+        <li>Unplug the router and modem, wait 30 seconds, then plug the modem in first and the router a minute later. Wait three minutes.</li>
+        <li>Move closer to the router for a test. If the connection holds, the signal is too weak where you were.</li>
+        <li>Check that the router is off the floor, away from microwaves and not tucked inside a cabinet.</li>
+        <li>On the affected device, open Wi-Fi settings, choose <b>Forget this network</b>, then reconnect with the Wi-Fi password.</li>
+        <li>Turn the device off and on again.</li>
+      </ol>
+      <div class="call-us"><b>Call or text us</b> at <a href="tel:+16624029032">662-402-9032</a> if it drops several times a day after these steps, if the whole office is affected, or if the router is more than five years old.</div>
+    </article>
+
+    <article id="printer">
+      <h2>3. My printer says it's offline</h2>
+      <ol>
+        <li>Make sure the printer is on, shows no error light and has paper.</li>
+        <li>Check that the printer is on the same Wi-Fi network as your computer, or that its USB cable is firmly plugged in.</li>
+        <li>Restart the printer, then restart your computer.</li>
+        <li>Windows: open <b>Settings &gt; Bluetooth &amp; devices &gt; Printers &amp; scanners</b>, select the printer and click <b>Open print queue</b>. Cancel any stuck jobs, then in the <b>Printer</b> menu make sure <b>Use Printer Offline</b> is not ticked.</li>
+        <li>Mac: open <b>System Settings &gt; Printers &amp; Scanners</b>, remove the printer with the minus button, then add it again with the plus button.</li>
+        <li>Print a test page.</li>
+      </ol>
+      <div class="call-us"><b>Call or text us</b> at <a href="tel:+16624029032">662-402-9032</a> if the printer still shows offline after being removed and re-added, or if several people can't print.</div>
+    </article>
+
+    <article id="slow">
+      <h2>4. My computer is running slow</h2>
+      <ol>
+        <li>Save your work and restart. A computer left on for weeks slows down, and this fixes it more often than anything else.</li>
+        <li>Close browser tabs you aren't using. Twenty or more open tabs can use most of the memory.</li>
+        <li>Check free storage space. If less than 10% of the drive is free, delete large files you don't need or move them to cloud storage.</li>
+        <li>Windows: press <b>Ctrl + Shift + Esc</b>, open <b>Task Manager</b> and look at what uses the most CPU or memory. Don't end anything you don't recognise.</li>
+        <li>Windows: in <b>Settings &gt; Windows Update</b>, install any waiting updates and restart. Mac: do the same under <b>System Settings &gt; General &gt; Software Update</b>.</li>
+        <li>Windows: in Task Manager's <b>Startup apps</b> tab, switch off programs you don't need at sign-in.</li>
+      </ol>
+      <div class="call-us"><b>Call or text us</b> at <a href="tel:+16624029032">662-402-9032</a> if it stays slow after a restart and an update, if it makes grinding or clicking noises, or if it is more than five years old with a hard disk rather than a solid-state drive.</div>
+    </article>
+
+    <article id="email">
+      <h2>5. My email isn't syncing or sending</h2>
+      <ol>
+        <li>Check your internet connection by opening any website.</li>
+        <li>Look in your <b>Outbox</b> folder. A message stuck there is usually a large attachment; remove it or share a link instead.</li>
+        <li>Close and reopen the mail app, then restart your computer or phone.</li>
+        <li>Try the same account in a web browser. If the browser works, the problem is the app, not the account.</li>
+        <li>If the account asks for a password, enter it again. A recent password change is the most common cause.</li>
+        <li>On a phone, remove the account and add it back.</li>
+      </ol>
+      <div class="call-us"><b>Call or text us</b> at <a href="tel:+16624029032">662-402-9032</a> if the browser version doesn't work either, if you see messages about the account being blocked or over its storage limit, or if mail you send is bouncing back.</div>
+    </article>
+
+  </div>
+</section>
+
+<div class="cta">
+  <div class="narrow">
+    <h2>Still stuck?</h2>
+    <p>Tell us what's happening and we'll get back to you, usually within one business day.</p>
+    <div class="actions">
+      <a class="btn gold" href="index.html#request">REQUEST SERVICE</a>
+      <a class="btn dark" href="tel:+16624029032"><i class="fa fa-phone"></i> CALL 662-402-9032</a>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="links">
+      <a href="index.html">Home</a>
+      <a href="index.html#privacy">Privacy</a>
+      <a href="index.html#terms">Terms</a>
+      <a href="index.html#refunds">Refunds</a>
+    </div>
+    &copy; <span id="year">2026</span> Dunigan Enterprises LLC &bull; Cleveland, MS &bull; Call or text <a href="tel:+16624029032" style="margin:0">662-402-9032</a>
+  </div>
+</footer>
+
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
